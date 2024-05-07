@@ -7,7 +7,7 @@ import { IoMdSearch } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-export default function Navbar({ foodType }) {
+export default function Navbar({ foodTypes }) {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [selectedCity, setSelectedCity] = useState("");
@@ -27,7 +27,7 @@ export default function Navbar({ foodType }) {
 
   return (
     <>
-      <div className="fixed top-0 w-full z-10">
+      <div className=" w-full z-10">
         <nav
           style={{ backgroundColor: "#d35400", border: "#d35400" }}
           className=" block w-full max-w-full px-4 py-8 text-black rounded-none shadow-md h-max  bg-opacity-80 lg:px-8  lg:py-4"
@@ -274,35 +274,35 @@ export default function Navbar({ foodType }) {
           </div>
         </nav>
       </div>
-      <div className="mt-28">
-        <MenuNavbar foodType={foodType} />
+      <div className="">
+        <MenuNavbar foodTypes={foodTypes} />
       </div>
     </>
   );
 }
 
-function MenuNavbar({ foodType }) {
+function MenuNavbar({ foodTypes }) {
   return (
     <nav
       style={{ backgroundColor: "#f39c12", border: "#d35400" }}
       className=" block w-full max-w-full px-4 py-8 text-black bg-white border rounded-none shadow-md h-max  bg-opacity-80 lg:px-8  lg:py-4"
     >
       <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <MenuList foodType={foodType} />
+        <MenuList foodTypes={foodTypes} />
       </div>
     </nav>
   );
 }
-function MenuList({ foodType }) {
+function MenuList({ foodTypes }) {
   return (
     <ul className="flex flex-col float-right gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {foodType.map((item) => (
-        <Item item={item} key={item.id} />
+      {foodTypes.map((item) => (
+        <Item item={item} scrollToId={item.id} key={item.id} />
       ))}
     </ul>
   );
 }
-function Item({ item }) {
+function Item({ item, scrollToId }) {
   const [clicked, setClicked] = useState(item.clicked);
 
   function handleClick() {
@@ -311,7 +311,7 @@ function Item({ item }) {
 
   return (
     <li className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900">
-      <a className="flex items-center">
+      <a className="flex items-center" href={scrollToId}>
         <button
           style={{ backgroundColor: "#f1c40f" }}
           type="button"

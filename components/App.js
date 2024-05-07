@@ -4,11 +4,11 @@ import HomeCookedGoodness from "../components/HomeCookedGoodness";
 import Footer from "../components/Footer";
 
 export default function App() {
-  const foodType = [
-    { id: 1, type: "Baked Food" },
-    { id: 2, type: "Frozen Food" },
-    { id: 3, type: "Chicken" },
-    { id: 4, type: "Beef" },
+  const foodTypes = [
+    { id: "#bakedFoodSection", type: "Baked Food" },
+    { id: "#frozenFoodSection", type: "Frozen Food" },
+    { id: "#chickenFoodSection", type: "Chicken" },
+    { id: "#beefFoodSection", type: "Beef" },
   ];
   const menuItems = [
     {
@@ -61,8 +61,8 @@ export default function App() {
   ];
   return (
     <>
-      <Navbar foodType={foodType} />
-      <Main menuItems={menuItems} foodType={foodType} />
+      <Navbar foodTypes={foodTypes} />
+      <Main menuItems={menuItems} foodType={foodTypes} />
       <HomeCookedGoodness />
       <Footer />
     </>
