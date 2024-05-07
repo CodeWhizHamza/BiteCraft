@@ -242,7 +242,7 @@ export default function Footer() {
               style={{ color: "black" }}
               className="text-sm text-gray-500 sm:text-center dark:text-gray-400"
             >
-              © 2024 <a></a> All Rights Reserved.
+              © 2024 <a href="/">KitchenKonnect</a> All Rights Reserved.
             </span>
           </div>
         </div>
