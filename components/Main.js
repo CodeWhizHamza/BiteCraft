@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import "../app/styles.css";
 
 const Items = ({ item, foodType }) => {
   const [rating, setRating] = useState(0);
@@ -12,7 +13,13 @@ const Items = ({ item, foodType }) => {
   return (
     <li className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900">
       <a href="#">
-        <Image className="p-8 rounded-t-lg" src={item.img} alt="product-img" />
+        <Image
+          className="p-8 rounded-t-lg"
+          src={"/" + item.img}
+          alt="product-img"
+          width={20}
+          height={20}
+        />
       </a>
       <div className="px-5 pb-5">
         <a href="#">
