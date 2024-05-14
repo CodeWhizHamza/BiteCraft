@@ -69,8 +69,8 @@ function AccordionCustomIcon() {
             <AccordionBody className="p-4">
               Ordering from KitchenKonnect is simple! Just browse our rotating
               menu online, choose your desired meals, select your delivery time,
-              and checkout. We'll take care of the rest, preparing your food
-              with love and delivering it fresh to your doorstep.
+              and checkout. We&apos;ll take care of the rest, preparing your
+              food with love and delivering it fresh to your doorstep.
             </AccordionBody>
           )}
         </Accordion>
