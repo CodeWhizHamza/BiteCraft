@@ -90,11 +90,11 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900">
-                <a className="flex items-center">
+                <Link className="flex items-center" href="/cart">
                   <AiOutlineShoppingCart
                     style={{ fontSize: "25px", color: "#ecf0f1" }}
                   />
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
