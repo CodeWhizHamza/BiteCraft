@@ -32,7 +32,13 @@ const TestModals = () => {
       </div>
       {showModal ? (
         <div className="mt-10 flex justify-center items-center flex-col w-72 rounded-lg shadow-xl h-auto p-2">
-          <Image src={Trophy} width={100} height={100} objectFit="contain" />
+          <Image
+            src={Trophy}
+            width={100}
+            height={100}
+            objectFit="contain"
+            alt="Trophy"
+          />
           <h2 className="text-base mt-2 mx-4 text-gray-400 font-semibold text-center">
             May your life be filled with success and achievements.
             Congratulations!
@@ -49,7 +55,13 @@ const TestModals = () => {
       {/* second modal */}
       {showSecondModal ? (
         <div className="mt-10 flex justify-center items-center flex-col w-1/2 rounded-lg shadow-xl h-auto p-2">
-          <Image src={Gift} width={100} height={100} objectFit="contain" />
+          <Image
+            src={Gift}
+            width={100}
+            height={100}
+            objectFit="contain"
+            alt="Gift"
+          />
           <h2 className="text-base mt-2 text-gray-400 font-semibold text-center mx-4">
             Hurry! Your USD 50,00 Gift Voucher is about to expire! Shop now the
             latest Summer-Trends.
