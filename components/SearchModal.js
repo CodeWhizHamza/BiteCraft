@@ -36,8 +36,8 @@ export default function SearchModal() {
                   <h2 className="text-2xl font-bold mb-8 text-center ">
                     Select your location
                   </h2>
-                  <form className="max-w-md mx-auto">
-                    <div className="relative">
+                  <form class="max-w-md mx-auto">
+                    <div class="relative">
                       <select
                         id="cities"
                         value={selectedCity}
@@ -54,7 +54,7 @@ export default function SearchModal() {
                       </select>
                       <select
                         id="areas"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       >
                         <option value="" disabled selected hidden>
                           Choose area
