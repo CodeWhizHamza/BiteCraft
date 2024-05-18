@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import App from "../components/App";
 import { Inter } from "next/font/google";
 import "../src/styles.css";
 
@@ -17,10 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>
-        <App />
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

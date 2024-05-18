@@ -1,35 +1,13 @@
-"use client";
-
-import React from "react";
-import { createContext } from "react";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import { useState } from "react";
+import Icon from "./Icon";
 
-function Icon({ id, open }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="currentColor"
-      className={`${
-        id === open ? "rotate-180" : ""
-      } h-5 w-5 transition-transform`}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-      />
-    </svg>
-  );
-}
-function AccordionCustomIcon() {
-  const [open, setOpen] = React.useState(0);
+export default function AccordionWithCustomIcon() {
+  const [open, setOpen] = useState(0);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
@@ -66,8 +44,8 @@ function AccordionCustomIcon() {
             <AccordionBody className="p-4">
               Ordering from KitchenKonnect is simple! Just browse our rotating
               menu online, choose your desired meals, select your delivery time,
-              and checkout. We'll take care of the rest, preparing your food
-              with love and delivering it fresh to your doorstep.
+              and checkout. We&apos;ll take care of the rest, preparing your
+              food with love and delivering it fresh to your doorstep.
             </AccordionBody>
           )}
         </Accordion>
@@ -134,27 +112,6 @@ function AccordionCustomIcon() {
             </AccordionBody>
           )}
         </Accordion>
-      </div>
-    </>
-  );
-}
-
-export default function HomeCookedGoodness() {
-  return (
-    <>
-      <div
-        style={{ backgroundColor: "#f39c12" }}
-        className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900"
-      >
-        <div
-          style={{ backgroundColor: "#d35400", border: "#d35400" }}
-          className="mx-auto w-full max-w-screen-xl p-4 mt-12 py-6 lg:py-8  border-gray-200 shadow-2xl rounded-lg dark:bg-gray-800 dark:border-gray-700"
-        >
-          <h2 className="text-2xl font-bold mb-4 text-center">
-            Home Cooked Goodness
-          </h2>
-          <AccordionCustomIcon />
-        </div>
       </div>
     </>
   );
