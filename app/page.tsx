@@ -1,3 +1,4 @@
+import MenuNavBar from "@/components/MenuNavBar";
 import Navbar from "@/components/Navbar";
 import FoodCategoryDisplay from "@/components/FoodCategoryDisplay";
 import HomeCookedGoodness from "@/components/HomeCookedGoodness";
@@ -61,7 +62,8 @@ export default function Page() {
   ];
   return (
     <>
-      <Navbar foodTypes={foodTypes} />
+      <Navbar />
+      <MenuNavBar foodTypes={foodTypes} />
       <FoodCategoryDisplay menuItems={menuItems} />
       <HomeCookedGoodness />
       <Footer />
