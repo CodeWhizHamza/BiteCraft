@@ -21,7 +21,10 @@ export default function Navbar() {
           className="flex flex-col md:flex-row items-center w-full p-2 text-black rounded-none shadow-md bg-opacity-80 justify-between mx-auto text-blue-gray-900"
         >
           <div className="w-full flex items-center justify-between flex-1">
-            <a className="mr-4 block cursor-pointer py-1.5 font-sans text-base font-medium leading-relaxed text-inherit antialiased">
+            <Link
+              className="mr-4 block cursor-pointer py-1.5 font-sans text-base font-medium leading-relaxed text-inherit antialiased"
+              href="/"
+            >
               <Image
                 src="/logo-without-text.png"
                 width={60}
@@ -29,7 +32,7 @@ export default function Navbar() {
                 objectFit="contain"
                 alt="Logo"
               />
-            </a>
+            </Link>
 
             {/* Hamburger icon that's visible only till md screen and then hidden */}
             <div className="block md:hidden">
