@@ -9,7 +9,7 @@ export default function FoodItem({ item }) {
   };
 
   return (
-    <li className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <article className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#" className="flex justify-center items-center">
         <Image
           src={item.img}
@@ -63,6 +63,6 @@ export default function FoodItem({ item }) {
           </button>
         </div>
       </div>
-    </li>
+    </article>
   );
 }
