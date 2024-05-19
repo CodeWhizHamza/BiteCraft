@@ -1,6 +1,23 @@
+"use client";
 import Navbar from "@/components/Navbar";
+import { useUserAuth } from "@/store/userAuth";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
+  const isAlreadyLoggedIn = useUserAuth((state) => state.isLoggedIn);
+  const isAdmin = useUserAuth((state) => state.user?.role === "admin");
+
+  if (!isAlreadyLoggedIn) {
+    router.replace("/login");
+    return null;
+  }
+
+  if (isAdmin) {
+    router.replace("/admin");
+    return null;
+  }
+
   return (
     <>
       <Navbar />
