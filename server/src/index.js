@@ -1,7 +1,12 @@
 const express = require("express");
 require("dotenv").config();
 const connectToDB = require("./helpers/connectToDB");
+const verifyToken = require("./middlewares/verifyToken");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 const userRouter = require("./routes/user");
+const adminRouter = require("./routes/admin");
 
 const app = express();
 const port = process.env.PORT || 5050;
@@ -23,7 +28,26 @@ app.use((req, _, next) => {
   next();
 });
 
+app.use("/admin", adminRouter);
 app.use("/user", userRouter);
+
+app.get("/", (req, res) => {
+  res.send(jwt.verify(req.body.token, process.env.JWT_SECRET));
+});
+
+app.get("/seed", async (req, res) => {
+  // remove all the accounts in Admin collection and create a new admin with username: admin and password: admin
+  const Admin = require("./models/Admin");
+  await Admin.deleteMany({});
+
+  const admin = new Admin({
+    username: "admin",
+    password: bcrypt.hashSync("admin", 10),
+  });
+  await admin.save();
+
+  res.send("Seeding completed successfully");
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
