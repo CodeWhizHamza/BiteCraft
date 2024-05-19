@@ -99,7 +99,7 @@ export default function CategoryModal({
                     />
                   </svg>
                 )}
-                Add new category
+                Submit
               </button>
             </form>
           </div>
