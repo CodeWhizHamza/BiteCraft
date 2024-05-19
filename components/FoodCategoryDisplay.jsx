@@ -15,7 +15,7 @@ export default function FoodCategoryDisplay({ menuItems }) {
       <div className="container mx-auto p-4">
         <section id="bakedFoodSection">
           <div className="flex flex-col justify-between mx-auto text-blue-gray-900">
-            <h2 className="text-2xl mb-4 mt-8 font-bold tracking-tight text-gray-900 dark:text-white">
+            <h2 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-gray-50 dark:text-white">
               Baked Food
             </h2>
             <ul className="flex flex-col float-left gap-2 mt-2 mb-4  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -27,7 +27,7 @@ export default function FoodCategoryDisplay({ menuItems }) {
         </section>
         <section id="frozenFoodSection">
           <div className="flex flex-col justify-between mx-auto text-blue-gray-900">
-            <h3 className="text-2xl mb-4 mt-8 font-bold tracking-tight text-gray-900 dark:text-white">
+            <h3 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-gray-50 dark:text-white">
               Frozen Food
             </h3>
             <ul className="flex flex-col float-left gap-2 mt-2 mb-4  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -40,7 +40,7 @@ export default function FoodCategoryDisplay({ menuItems }) {
 
         <section id="beefFoodSection">
           <div className="flex flex-col justify-between mx-auto text-blue-gray-900">
-            <h3 className="text-2xl mb-4 mt-8 font-bold tracking-tight text-gray-900 dark:text-white">
+            <h3 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-gray-50 dark:text-white">
               Beef
             </h3>
             <ul className="flex flex-col float-left gap-2 mt-2 mb-4  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -53,7 +53,7 @@ export default function FoodCategoryDisplay({ menuItems }) {
 
         <section id="chickenFoodSection">
           <div className="flex flex-col justify-between mx-auto text-blue-gray-900">
-            <h3 className="text-2xl mb-4 mt-8 font-bold tracking-tight text-gray-900 dark:text-white">
+            <h3 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-gray-50 dark:text-white">
               Chicken
             </h3>
             <ul className="flex flex-col float-left gap-2 mt-2 mb-4  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
