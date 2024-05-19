@@ -22,9 +22,10 @@ router.post("/", verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-router.get("/",  async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const categories = await Category.find();
+    categories.sort((a, b) => a.name.localeCompare(b.name));
     res.send({
       success: true,
       data: categories,
