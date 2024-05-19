@@ -4,13 +4,14 @@ const { verifyToken, isAdmin } = require("../middleware/auth");
 
 router.post("/", verifyToken, isAdmin, async (req, res) => {
     try {
+        console.log(req.body);
         const foodItem = new FoodItem({
             image: req.body.image,
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
             category: req.body.category,
-            availability: req.body.availability,
+            availability: req.body.isAvailable,
         });
         await foodItem.save();
         res.send({
@@ -19,9 +20,10 @@ router.post("/", verifyToken, isAdmin, async (req, res) => {
             data: foodItem,
         });
     } catch (error) {
+        console.log(error);
         res.status(400).send({
             success: false,
-            message: "Error creating food item",
+            message: error.message,
             error: error.message,
         });
     }
@@ -30,6 +32,7 @@ router.post("/", verifyToken, isAdmin, async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const foodItems = await FoodItem.find();
+        foodItems.sort((a, b) => a.category.localeCompare(b.category));
         res.send({
             success: true,
             data: foodItems,
