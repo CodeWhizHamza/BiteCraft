@@ -31,7 +31,7 @@ app.use((req, _, next) => {
 
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
-app.use("/admin/category", verifyToken, categoryRouter);
+app.use("/admin/category", categoryRouter);
 
 app.get("/", (req, res) => {
   res.send(jwt.verify(req.body.token, process.env.JWT_SECRET));
