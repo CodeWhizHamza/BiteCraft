@@ -13,7 +13,7 @@ export default function FoodItem({ item }) {
       <a href="#" className="flex justify-center items-center">
         <Image
           src={item.img}
-          classNameName="p-8 rounded-t-lg"
+          className="p-8 rounded-t-lg"
           alt="product-img"
           width={300}
           height={300}
