@@ -1,12 +1,13 @@
 const express = require("express");
 require("dotenv").config();
 const connectToDB = require("./helpers/connectToDB");
-const verifyToken = require("./middlewares/verifyToken");
+const verifyToken = require("./middlewares/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const userRouter = require("./routes/user");
 const adminRouter = require("./routes/admin");
+const categoryRouter = require("./routes/category");
 
 const app = express();
 const port = process.env.PORT || 5050;
@@ -30,6 +31,7 @@ app.use((req, _, next) => {
 
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
+app.use("/admin/category", verifyToken, categoryRouter);
 
 app.get("/", (req, res) => {
   res.send(jwt.verify(req.body.token, process.env.JWT_SECRET));
