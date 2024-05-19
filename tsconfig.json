@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/AccordionWithCustomIcon/index.jsx"
+    "components/AccordionWithCustomIcon/index.jsx",
+    "app/admin/food-menu/category-modal.j'sx"
   ],
   "exclude": ["node_modules"]
 }
