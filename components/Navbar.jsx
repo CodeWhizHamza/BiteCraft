@@ -29,8 +29,8 @@ export default function Navbar() {
                 src="/logo-without-text.png"
                 width={60}
                 height={60}
-                objectFit="contain"
                 alt="Logo"
+                className="object-contain w-auto h-auto"
               />
             </Link>
 
@@ -50,7 +50,7 @@ export default function Navbar() {
               <li className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900 overflow-hidden">
                 <form>
                   <label
-                    for="search"
+                    htmlFor="search"
                     className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
                   >
                     Search
