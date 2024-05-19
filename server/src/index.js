@@ -48,6 +48,8 @@ app.get("/seed", async (req, res) => {
   });
   await admin.save();
 
+  
+
   res.send("Seeding completed successfully");
 });
 
