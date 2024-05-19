@@ -22,9 +22,10 @@ router.post("/", verifyToken, isAdmin, async (req, res) => {
   }
 });
 
-router.get("/",  async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const categories = await Category.find();
+    categories.sort((a, b) => a.name.localeCompare(b.name));
     res.send({
       success: true,
       data: categories,
@@ -73,7 +74,7 @@ router.delete("/:id", verifyToken, isAdmin, async (req, res) => {
         message: "Category not found",
       });
     }
-    await category.delete();
+    await Category.findByIdAndDelete(req.params.id);
     res.send({
       success: true,
       message: "Category deleted successfully",

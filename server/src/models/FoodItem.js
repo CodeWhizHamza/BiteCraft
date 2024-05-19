@@ -21,6 +21,10 @@ const foodItemSchema = new Schema({
     type: String,
     required: true,
   },
+  availability: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const FoodItem = model("FoodItem", foodItemSchema);
