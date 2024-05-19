@@ -31,7 +31,7 @@ app.use((req, _, next) => {
 
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
-app.use("/admin/food-menu/category", categoryRouter);
+app.use("/admin/food-menu/categories", categoryRouter);
 
 // app.get("/", (req, res) => {
 //   res.send(jwt.verify(req.body.token, process.env.JWT_SECRET));

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt"); 
 
 router.post("/register", async (req, res) => {
   const user = await User.findOne({ phoneNumber: req.body.phoneNumber });
