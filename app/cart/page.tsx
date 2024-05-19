@@ -15,7 +15,7 @@ export default function Page() {
             Your cart
           </h2>
           <div className="rounded-3xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4 ">
-            <div className="col-span-12 lg:col-span-2 img box">
+            <div className="col-span-12 lg:col-span-2 img box grid place-items-center">
               <Image
                 src="/biscuits.png"
                 alt="speaker image"
@@ -113,7 +113,7 @@ export default function Page() {
             </div>
           </div>
           <div className="rounded-3xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4">
-            <div className="col-span-12 lg:col-span-2 img box">
+            <div className="col-span-12 lg:col-span-2 img box grid place-items-center">
               <img
                 src="https://pagedone.io/asset/uploads/1701162839.png"
                 alt="speaker image"
