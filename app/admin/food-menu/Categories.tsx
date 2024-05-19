@@ -2,8 +2,10 @@ import axios from "axios";
 import CategoryModal from "./CategoryModal";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useUserAuth } from "@/store/userAuth";
 
 export default function Categories() {
+  const token = useUserAuth((state) => state.authToken);
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
 
@@ -23,9 +25,17 @@ export default function Categories() {
     const formData = new FormData(form);
 
     try {
-      const response = await axios.post("/admin/food-menu/category", {
-        name: formData.get("categoryName"),
-      });
+      const response = await axios.post(
+        "/admin/food-menu/category",
+        {
+          name: formData.get("categoryName"),
+        },
+        {
+          headers: {
+            "auth-token": token,
+          },
+        }
+      );
       const data = await response.data;
       toast.success(data.message);
 
