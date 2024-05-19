@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../src/styles.css";
-
+import axios from "axios";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,9 +14,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const apiURL = process.env.API_URL;
+  if (!apiURL) {
+    throw new Error("API_URL is not set");
+  }
+  axios.defaults.baseURL = apiURL;
+
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>{children}</body>
+      <body suppressHydrationWarning={true} className={inter.className}>
+        {children}
+      </body>
     </html>
   );
 }
