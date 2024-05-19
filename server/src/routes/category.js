@@ -73,7 +73,7 @@ router.delete("/:id", verifyToken, isAdmin, async (req, res) => {
         message: "Category not found",
       });
     }
-    await category.delete();
+    await Category.findByIdAndDelete(req.params.id);
     res.send({
       success: true,
       message: "Category deleted successfully",
