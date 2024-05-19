@@ -8,20 +8,22 @@ const bcrypt = require("bcrypt");
 const userRouter = require("./routes/user");
 const adminRouter = require("./routes/admin");
 const categoryRouter = require("./routes/category");
+const fooditemRouter = require("./routes/foodItemRoute");
 
 const app = express();
 const port = process.env.PORT || 5050;
 
 connectToDB();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use((_, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "*");
   res.header("Access-Control-Allow-Headers", "*");
   next();
 });
+
 
 // logger middleware
 app.use((req, _, next) => {
@@ -32,6 +34,7 @@ app.use((req, _, next) => {
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 app.use("/admin/food-menu/categories", categoryRouter);
+app.use("/admin/food-menu/items", fooditemRouter);
 
 // app.get("/", (req, res) => {
 //   res.send(jwt.verify(req.body.token, process.env.JWT_SECRET));
@@ -47,6 +50,8 @@ app.get("/seed", async (req, res) => {
     password: bcrypt.hashSync("admin", 10),
   });
   await admin.save();
+
+
 
   res.send("Seeding completed successfully");
 });
