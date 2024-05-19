@@ -3,6 +3,7 @@ import CategoryModal from "./CategoryModal";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useUserAuth } from "@/store/userAuth";
+import Swal from "sweetalert2";
 
 interface Category {
   _id: string;
@@ -45,6 +46,7 @@ export default function Categories() {
     setTitle("Add New Category");
     setShowModal(true);
     setIsAddingCategory(true);
+    setPreviousValue("");
   };
 
   const handleAddCategoryFormSubmit = async (
@@ -148,7 +150,42 @@ export default function Categories() {
   };
 
   const handleDeleteCategoryClicked = (id: string) => {
-    console.log("Delete category with id: ", id);
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete(
+            `/admin/food-menu/categories/${id}`,
+            {
+              headers: {
+                "auth-token": token,
+              },
+            }
+          );
+          const data = await response.data;
+          toast.success(data.message);
+
+          setCategories((prevCategories) =>
+            prevCategories.filter((category) => category._id !== id)
+          );
+        } catch (error: any) {
+          if (error.response) {
+            const data = await error.response.data;
+            toast.error(data.message);
+          } else {
+            toast.error("An error occurred. Please try again later.");
+          }
+        }
+      }
+    });
   };
 
   return (
