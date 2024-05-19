@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const connectToDB = require("./helpers/connectToDB");
-const verifyToken = require("./middlewares/auth");
+const verifyToken = require("./middleware/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
