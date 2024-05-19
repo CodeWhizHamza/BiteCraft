@@ -126,14 +126,11 @@ export default function FoodItems() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await axios.delete(
-            `/admin/food-menu/categories/${id}`,
-            {
-              headers: {
-                "auth-token": token,
-              },
-            }
-          );
+          const response = await axios.delete(`/admin/food-menu/items/${id}`, {
+            headers: {
+              "auth-token": token,
+            },
+          });
           const data = await response.data;
           toast.success(data.message);
 
