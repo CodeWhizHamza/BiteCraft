@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const userRouter = require("./routes/user");
 const adminRouter = require("./routes/admin");
 const categoryRouter = require("./routes/category");
+const fooditemRouter = require("./routes/fooditem");
 
 const app = express();
 const port = process.env.PORT || 5050;
@@ -32,6 +33,7 @@ app.use((req, _, next) => {
 app.use("/admin", adminRouter);
 app.use("/user", userRouter);
 app.use("/admin/food-menu/categories", categoryRouter);
+app.use("/admin/food-menu/items", fooditemRouter);
 
 // app.get("/", (req, res) => {
 //   res.send(jwt.verify(req.body.token, process.env.JWT_SECRET));
@@ -48,7 +50,7 @@ app.get("/seed", async (req, res) => {
   });
   await admin.save();
 
-  
+
 
   res.send("Seeding completed successfully");
 });
