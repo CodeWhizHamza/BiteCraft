@@ -19,7 +19,7 @@ export default function CategoryModal({
         className={`${
           !show && "hidden"
         } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full bg-slate-700 bg-opacity-40 backdrop-blur-sm grid`}
-        onClick={(e) => {
+        onMouseDown={(e) => {
           if (e.target.id === "crud-modal") {
             setShow(!show);
           }
