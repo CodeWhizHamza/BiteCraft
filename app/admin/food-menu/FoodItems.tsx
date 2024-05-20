@@ -6,23 +6,14 @@ import { useUserAuth } from "@/store/userAuth";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import { FaSpinner } from "react-icons/fa6";
-
-interface FoodItem {
-  _id: string;
-  name: string;
-  image: string;
-  price: number;
-  category: string;
-  description: string;
-  isAvailable: boolean;
-}
+import IFoodItem from "@/types/FoodItem";
 
 export default function FoodItems() {
   const token = useUserAuth((state) => state.authToken);
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
-  const [items, setItems] = useState<FoodItem[]>([]);
-  const [selectedItem, setSelectedItem] = useState<FoodItem | null>();
+  const [items, setItems] = useState<IFoodItem[]>([]);
+  const [selectedItem, setSelectedItem] = useState<IFoodItem | null>();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
