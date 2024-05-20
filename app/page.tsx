@@ -1,3 +1,4 @@
+"use client";
 import MenuNavBar from "@/components/MenuNavBar";
 import Navbar from "@/components/Navbar";
 import FoodCategoryDisplay from "@/components/FoodCategoryDisplay";
@@ -64,7 +65,7 @@ export default function Page() {
     <>
       <Navbar />
       <MenuNavBar foodTypes={foodTypes} />
-      <FoodCategoryDisplay menuItems={menuItems} />
+      <FoodCategoryDisplay />
       <HomeCookedGoodness />
       <Footer />
     </>
