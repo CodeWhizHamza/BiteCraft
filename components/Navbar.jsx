@@ -98,12 +98,11 @@ export default function Navbar() {
               </li>
               <li className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900 relative">
                 {/* A red badge that shows the number of items in the cart */}
-                {numberOfItems > 0 ||
-                  (true && (
-                    <span className="absolute -top-2 -right-2 flex w-5 h-5 items-center justify-center bg-blue-500 text-white rounded-full p-1 text-xs leading-none">
-                      {numberOfItems > 9 ? "9+" : numberOfItems}
-                    </span>
-                  ))}
+                {numberOfItems > 0 && (
+                  <span className="absolute -top-2 -right-2 flex w-5 h-5 items-center justify-center bg-blue-500 text-white rounded-full p-1 text-xs leading-none">
+                    {numberOfItems > 9 ? "9+" : numberOfItems}
+                  </span>
+                )}
                 <Link className="flex items-center" href="/cart">
                   <AiOutlineShoppingCart
                     style={{ fontSize: "25px", color: "#ecf0f1" }}
