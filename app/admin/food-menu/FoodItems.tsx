@@ -65,12 +65,17 @@ export default function FoodItems() {
     const image = form.image;
     const imageFile = image.files[0];
 
-    const imageString = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-      reader.readAsDataURL(imageFile);
+    const imageFormData = new FormData();
+    imageFormData.append("file", imageFile);
+
+    // @ts-ignore
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: imageFormData,
     });
+    console.log(response);
+    const data = await response.json();
+    const imageString = `/images/uploads/${data.path.split("\\").pop()}`;
 
     const formData = new FormData(form);
     console.dir(formData);
@@ -84,7 +89,7 @@ export default function FoodItems() {
           price: formData.get("price"),
           category: formData.get("category"),
           description: formData.get("description"),
-          isAvailable: formData.get("isAvailable") !== "0",
+          isAvailable: formData.get("isAvailable") === "0",
           image: formData.get("image"),
         },
         {
