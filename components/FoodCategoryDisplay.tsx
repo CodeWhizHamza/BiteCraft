@@ -3,19 +3,10 @@ import { useEffect, useState } from "react";
 import FoodItem from "./FoodItem";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-interface FoodItem {
-  _id: string;
-  name: string;
-  image: string;
-  price: number;
-  category: string;
-  description: string;
-  isAvailable: boolean;
-}
+import IFoodItem from "@/types/FoodItem";
 
 export default function FoodCategoryDisplay() {
-  const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
+  const [foodItems, setFoodItems] = useState<IFoodItem[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
