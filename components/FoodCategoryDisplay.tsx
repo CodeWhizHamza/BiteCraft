@@ -1,19 +1,66 @@
 "use client";
+import { useEffect, useState } from "react";
 import FoodItem from "./FoodItem";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-export default function FoodCategoryDisplay({ menuItems }) {
-  const bakedFoodItems = menuItems.filter((item) => item.type === "Baked Food");
-  const frozenFoodItems = menuItems.filter(
-    (item) => item.type === "Frozen Food"
-  );
+interface FoodItem {
+  _id: string;
+  name: string;
+  image: string;
+  price: number;
+  category: string;
+  description: string;
+  isAvailable: boolean;
+}
 
-  const beefFoodItems = menuItems.filter((item) => item.type === "Beef");
-  const chickenFoodItems = menuItems.filter((item) => item.type === "Chicken");
+export default function FoodCategoryDisplay() {
+  const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchFoodItems = async () => {
+      try {
+        const response = await axios.get("/food-menu/items");
+        const data = response.data;
+        setFoodItems(data.data);
+      } catch (error) {
+        toast.error("Error fetching food items");
+        console.error("Error fetching food items: ", error);
+      }
+    };
+
+    fetchFoodItems();
+  }, []);
+
+  useEffect(() => {
+    const categories = foodItems.map((item) => item.category);
+    const uniqueCategories = Array.from(new Set(categories));
+    setCategories(uniqueCategories);
+  }, [foodItems]);
 
   return (
     <div style={{ backgroundColor: "#f39c12" }}>
       <div className="container mx-auto p-4">
-        <section id="bakedFoodSection">
+        {categories.map((category) => {
+          const items = foodItems.filter((item) => item.category === category);
+          return (
+            <section key={category} id={`${category}Section`}>
+              <div className="flex flex-col justify-between mx-auto text-blue-gray-900">
+                <h2 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-gray-50 dark:text-white">
+                  {category}
+                </h2>
+                <ul className="flex flex-col float-left gap-2 mt-2 mb-4  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+                  {items.map((item) => (
+                    <FoodItem item={item} key={item._id} />
+                  ))}
+                </ul>
+              </div>
+            </section>
+          );
+        })}
+
+        {/* <section id="bakedFoodSection">
           <div className="flex flex-col justify-between mx-auto text-blue-gray-900">
             <h2 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-gray-50 dark:text-white">
               Baked Food
@@ -62,7 +109,7 @@ export default function FoodCategoryDisplay({ menuItems }) {
               ))}
             </ul>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );
