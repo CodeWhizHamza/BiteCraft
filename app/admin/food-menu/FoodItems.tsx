@@ -24,6 +24,7 @@ export default function FoodItems() {
   const [items, setItems] = useState<FoodItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<FoodItem | null>();
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchItems = async () => {
       setLoading(true);
