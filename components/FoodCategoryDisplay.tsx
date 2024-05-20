@@ -1,28 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import FoodItem from "./FoodItem";
-import axios from "axios";
-import { toast } from "react-toastify";
-import IFoodItem from "@/types/FoodItem";
+import { useFoodItemsStore } from "@/store/foodItems";
 
 export default function FoodCategoryDisplay() {
-  const [foodItems, setFoodItems] = useState<IFoodItem[]>([]);
+  const foodItems = useFoodItemsStore((state) => state.foodItems);
   const [categories, setCategories] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchFoodItems = async () => {
-      try {
-        const response = await axios.get("/food-menu/items");
-        const data = response.data;
-        setFoodItems(data.data);
-      } catch (error) {
-        toast.error("Error fetching food items");
-        console.error("Error fetching food items: ", error);
-      }
-    };
-
-    fetchFoodItems();
-  }, []);
 
   useEffect(() => {
     const categories = foodItems.map((item) => item.category);
