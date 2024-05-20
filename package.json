@@ -11,6 +11,9 @@
   "dependencies": {
     "@material-tailwind/react": "^2.1.9",
     "axios": "^1.6.8",
+    "express": "^4.19.2",
+    "formidable": "^3.5.1",
+    "formidable-serverless": "^1.1.1",
     "jose": "^5.3.0",
     "next": "14.2.3",
     "react": "^18",
@@ -22,6 +25,8 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/formidable": "^3.4.5",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20",
     "@types/react": "^18",

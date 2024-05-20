@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useUserAuth } from "@/store/userAuth";
 import Swal from "sweetalert2";
+import { FaSpinner } from "react-icons/fa6";
 
 interface Category {
   _id: string;
@@ -18,9 +19,11 @@ export default function Categories() {
   const [title, setTitle] = useState("");
   const [categories, setCategories] = useState<Category[]>([]);
   const [previousValue, setPreviousValue] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
+      setLoading(true);
       try {
         const response = await axios.get("/admin/food-menu/categories", {
           headers: {
@@ -37,6 +40,7 @@ export default function Categories() {
           toast.error("An error occurred. Please try again later.");
         }
       }
+      setLoading(false);
     };
 
     fetchCategories();
@@ -218,6 +222,13 @@ export default function Categories() {
               </tr>
             </thead>
             <tbody>
+              {loading && (
+                <tr>
+                  <td colSpan={3} className="text-center py-4">
+                    <FaSpinner className="animate-spin mx-auto text-3xl" />
+                  </td>
+                </tr>
+              )}
               {categories.map((category) => (
                 <tr
                   key={category._id}
