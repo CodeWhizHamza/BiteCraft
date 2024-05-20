@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useUserAuth } from "@/store/userAuth";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import { FaSpinner } from "react-icons/fa6";
 
 interface FoodItem {
   _id: string;
@@ -22,9 +23,10 @@ export default function FoodItems() {
   const [title, setTitle] = useState("");
   const [items, setItems] = useState<FoodItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<FoodItem | null>();
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchItems = async () => {
+      setLoading(true);
       try {
         const response = await axios.get("/admin/food-menu/items", {
           headers: {
@@ -41,6 +43,7 @@ export default function FoodItems() {
           toast.error("An error occurred. Please try again later.");
         }
       }
+      setLoading(false);
     };
 
     fetchItems();
@@ -73,7 +76,6 @@ export default function FoodItems() {
       method: "POST",
       body: imageFormData,
     });
-    console.log(response);
     const data = await response.json();
     const imageString = `/images/uploads/${data.path.split("\\").pop()}`;
 
@@ -196,6 +198,20 @@ export default function FoodItems() {
               </tr>
             </thead>
             <tbody>
+              {loading && (
+                <tr>
+                  <td colSpan={7} className="text-center py-4">
+                    <div className="flex justify-center items-center space-x-2">
+                      <FaSpinner
+                        className="animate-spin text-3xl"
+                        size={20}
+                        color="#2563EB"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              )}
+
               {items.map((item) => (
                 <tr
                   key={item._id}
