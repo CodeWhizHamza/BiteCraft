@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useUserAuth } from "@/store/userAuth";
 import Swal from "sweetalert2";
+import Image from "next/image";
+import { FaSpinner } from "react-icons/fa6";
 
 interface FoodItem {
   _id: string;
@@ -21,9 +23,11 @@ export default function FoodItems() {
   const [title, setTitle] = useState("");
   const [items, setItems] = useState<FoodItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<FoodItem | null>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchItems = async () => {
+      setLoading(true);
       try {
         const response = await axios.get("/admin/food-menu/items", {
           headers: {
@@ -40,6 +44,7 @@ export default function FoodItems() {
           toast.error("An error occurred. Please try again later.");
         }
       }
+      setLoading(false);
     };
 
     fetchItems();
@@ -64,12 +69,16 @@ export default function FoodItems() {
     const image = form.image;
     const imageFile = image.files[0];
 
-    const imageString = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-      reader.readAsDataURL(imageFile);
+    const imageFormData = new FormData();
+    imageFormData.append("file", imageFile);
+
+    // @ts-ignore
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: imageFormData,
     });
+    const data = await response.json();
+    const imageString = `/images/uploads/${data.path.split("\\").pop()}`;
 
     const formData = new FormData(form);
     console.dir(formData);
@@ -83,7 +92,7 @@ export default function FoodItems() {
           price: formData.get("price"),
           category: formData.get("category"),
           description: formData.get("description"),
-          isAvailable: formData.get("isAvailable") !== "0",
+          isAvailable: formData.get("isAvailable") === "0",
           image: formData.get("image"),
         },
         {
@@ -125,14 +134,11 @@ export default function FoodItems() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await axios.delete(
-            `/admin/food-menu/categories/${id}`,
-            {
-              headers: {
-                "auth-token": token,
-              },
-            }
-          );
+          const response = await axios.delete(`/admin/food-menu/items/${id}`, {
+            headers: {
+              "auth-token": token,
+            },
+          });
           const data = await response.data;
           toast.success(data.message);
 
@@ -170,10 +176,22 @@ export default function FoodItems() {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Category Name
+                  <div className="flex items-center">Image</div>
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  <div className="flex items-center">Number of Items</div>
+                  Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Price
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Category
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Description
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Available
                 </th>
                 <th scope="col" className="px-6 py-3">
                   <span className="sr-only">Actions</span>
@@ -181,31 +199,64 @@ export default function FoodItems() {
               </tr>
             </thead>
             <tbody>
+              {loading && (
+                <tr>
+                  <td colSpan={7} className="text-center py-4">
+                    <div className="flex justify-center items-center space-x-2">
+                      <FaSpinner
+                        className="animate-spin text-3xl"
+                        size={20}
+                        color="#2563EB"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              )}
+
               {items.map((item) => (
                 <tr
                   key={item._id}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    {item.name}
-                  </th>
-                  <td className="px-6 py-4">5</td>
-                  <td className="px-6 py-4 text-right flex gap-4 justify-end">
-                    <button
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                      onClick={() => console.log("Edit clicked")}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                      onClick={() => handleDeleteCategoryClicked(item._id)}
-                    >
-                      Delete
-                    </button>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        className="w-auto h-auto max-w-14 max-h-14 object-cover rounded-full"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                  </td>
+                  <td className="px-6 py-3">{item.name}</td>
+                  <td className="px-6 py-3">{item.price}</td>
+                  <td className="px-6 py-3">{item.category}</td>
+                  <td className="px-6 py-3">
+                    {item.description.slice(0, 20) + "..."}
+                  </td>
+                  <td className="px-6 py-3">
+                    {item.isAvailable ? "Yes" : "No"}
+                  </td>
+                  <td className="px-6 py-3">
+                    <div className="flex items-center space-x-4">
+                      <button
+                        className="text-blue-600 dark:text-blue-400 hover:underline"
+                        onClick={() => {
+                          setTitle("Edit Food Item");
+                          setShowModal(true);
+                          setSelectedItem(item);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="text-red-600 dark:text-red-400 hover:underline"
+                        onClick={() => handleDeleteCategoryClicked(item._id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
