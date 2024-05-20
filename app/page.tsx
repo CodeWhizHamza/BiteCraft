@@ -10,23 +10,7 @@ import axios from "axios";
 import { FaSpinner } from "react-icons/fa6";
 
 export default function Page() {
-  const { isLoading, setIsLoading, setFoodItems } = useFoodItemsStore();
-
-  useEffect(() => {
-    const fetchFoodItems = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get("/food-menu/items");
-        const data = response.data;
-        setFoodItems(data.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching food items: ", error);
-      }
-    };
-
-    fetchFoodItems();
-  }, [setFoodItems, setIsLoading]);
+  const isLoading = useFoodItemsStore((state) => state.isLoading);
 
   const foodTypes = [
     { id: "#bakedFoodSection", type: "Baked Food" },
