@@ -21,6 +21,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/AccordionWithCustomIcon/index.jsx",
+    "app/admin/food-menu/category-modal.j'sx"
+  ],
   "exclude": ["node_modules"]
 }
