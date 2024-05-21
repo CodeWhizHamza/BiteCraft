@@ -8,14 +8,8 @@ import { MdLocationOn } from "react-icons/md";
 export default function Footer() {
   return (
     <>
-      <footer
-        style={{ backgroundColor: "#f39c12" }}
-        className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900 "
-      >
-        <div
-          style={{ backgroundColor: "#d35400", border: "#d35400" }}
-          className="w-full max-w-screen-3xl mt-12 p-4 py-6 lg:py-8 border-gray-200 rounded-lg shadow-xl mb-4 h-[20rem] dark:bg-gray-800 dark:border-gray-700"
-        >
+      <footer className="bg-primary2 flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900 ">
+        <div className="w-full max-w-screen-3xl mt-12 p-4 py-6 lg:py-8 bg-primary border-primary rounded-lg shadow-xl mb-4 h-[20rem] dark:bg-gray-800 dark:border-gray-700">
           <div className="md:flex md:justify-between ml-12">
             <div className="mb-6 md:mb-0">
               <a className="flex items-center">
