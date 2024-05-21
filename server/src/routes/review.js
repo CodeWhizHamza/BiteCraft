@@ -17,7 +17,7 @@ router.post("/", verifyToken, async (req, res) => {
         await review.save();
 
         const
-        user = await User.findById(req.user._id);
+            user = await User.findById(req.user._id);
         review._doc.username = user.name;
 
         res.send({
@@ -34,8 +34,27 @@ router.post("/", verifyToken, async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
     try {
+        if (req.user.role === "admin") {
+            const reviews = await Review.find();
+            const modifiedReviews = [];
+            for (let review of reviews) {
+                const user = await User.findById(review.user);
+                const item = await FoodItem.findById(review.productId);
+                review._doc.username = user.name;
+                review._doc.itemName = item.name;
+                review._doc.image = item.image;
+                review._doc.description = item.description;
+                modifiedReviews.push(review);
+            }
+            res.send({
+                success: true,
+                message: "Reviews fetched successfully",
+                data: modifiedReviews,
+            });
+            return;
+        }
 
         const reviews = await Review.find();
         const modifiedReviews = [];
@@ -45,13 +64,14 @@ router.get("/", async (req, res) => {
             review._doc.itemName = item.name;
             review._doc.username = user.name;
             modifiedReviews.push(review);
-        }                     
+        }
         res.send({
             success: true,
             message: "Reviews fetched successfully",
             data: modifiedReviews,
         });
     } catch (error) {
+        console.log(error);
         res.status(400).send({
             success: false,
             message: error.message,

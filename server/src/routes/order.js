@@ -47,6 +47,7 @@ router.get("/", verifyToken, async (req, res) => {
                 const customer = await User.findById(orders[i].user);
                 orders[i]._doc.username = customer.name;
                 orders[i]._doc.phoneNumber = customer.phoneNumber;
+                orders[i]._doc.address = customer.address;
 
                 for (let j = 0; j < orders[i].items.length; j++) {
                     let item = orders[i].items[j];
@@ -95,5 +96,30 @@ router.get("/", verifyToken, async (req, res) => {
     }
 }
 );
+
+router.put("/:id", verifyToken, isAdmin, async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.id);
+        if (!order) {
+            return res.status(404).send({
+                success: false,
+                message: "Order not found",
+            });
+        }
+        order.status = req.body.status;
+        await order.save();
+        res.send({
+            success: true,
+            message: "Order updated successfully",
+            data: order,
+        });
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: "Error updating order",
+            error: error.message,
+        });
+    }
+});
 
 exports = module.exports = router;
