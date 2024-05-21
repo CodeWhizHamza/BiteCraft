@@ -14,17 +14,27 @@ export default function FoodCategoryDisplay() {
   }, [foodItems]);
 
   return (
-    <div style={{ backgroundColor: "#f39c12" }}>
+    <div className="">
       <div className="container mx-auto p-4">
         {categories.map((category) => {
           const items = foodItems.filter((item) => item.category === category);
           return (
-            <section key={category} id={`${category}Section`}>
+            <section
+              key={category}
+              id={`${category.replaceAll(" ", "")}Section`}
+            >
               <div className="flex flex-col justify-between mx-auto text-blue-gray-900">
-                <h2 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-gray-50 dark:text-white">
+                <h2 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-slate-800 dark:text-white">
                   {category}
                 </h2>
-                <ul className="flex flex-col float-left gap-2 mt-2 mb-4  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+                <ul
+                  className="grid mt-2 mb-4"
+                  style={{
+                    gridTemplateColumns:
+                      "repeat(auto-fill, minmax(340px, 1fr))",
+                    gap: "1rem",
+                  }}
+                >
                   {items.map((item) => (
                     <FoodItem item={item} key={item._id} />
                   ))}

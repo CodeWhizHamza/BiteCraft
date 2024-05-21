@@ -4,11 +4,17 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useUserAuth } from "@/store/userAuth";
 import Swal from "sweetalert2";
-import { FaSpinner } from "react-icons/fa6";
+import {
+  FaCircleArrowRight,
+  FaRecycle,
+  FaRotate,
+  FaSpinner,
+} from "react-icons/fa6";
 
 interface Category {
   _id: string;
   name: string;
+  foodItemsCount: number;
 }
 
 export default function Categories() {
@@ -20,8 +26,13 @@ export default function Categories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [previousValue, setPreviousValue] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
+    if (!token) {
+      return;
+    }
+
     const fetchCategories = async () => {
       setLoading(true);
       try {
@@ -31,6 +42,7 @@ export default function Categories() {
           },
         });
         const data = await response.data;
+        console.log(data);
         setCategories(data.data);
       } catch (error: any) {
         if (error.response) {
@@ -44,7 +56,7 @@ export default function Categories() {
     };
 
     fetchCategories();
-  }, [token]);
+  }, [token, refresh]);
 
   const handleAddCategoryClicked = () => {
     setTitle("Add New Category");
@@ -80,7 +92,7 @@ export default function Categories() {
 
       setCategories((prevCategories) => [
         ...prevCategories,
-        { _id: data.data._id, name: data.data.name },
+        { _id: data.data._id, name: data.data.name, foodItemsCount: 0 },
       ]);
 
       setSpinning(false);
@@ -195,16 +207,26 @@ export default function Categories() {
   return (
     <>
       <section>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-2">
           <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-4">
             Food Categories
           </h2>
-          <button
-            className="text-blue-600 dark:text-blue-500 hover:underline"
-            onClick={handleAddCategoryClicked}
-          >
-            Add New Category
-          </button>
+
+          <div className="flex items-center gap-4">
+            <button
+              className="text-blue-600 dark:text-blue-500 hover:underline"
+              onClick={() => setRefresh(!refresh)}
+            >
+              <FaRotate className="inline-block" />
+            </button>
+
+            <button
+              className="text-blue-600 dark:text-blue-500 hover:underline w-fit"
+              onClick={handleAddCategoryClicked}
+            >
+              Add New Category
+            </button>
+          </div>
         </div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -240,7 +262,7 @@ export default function Categories() {
                   >
                     {category.name}
                   </th>
-                  <td className="px-6 py-4">5</td>
+                  <td className="px-6 py-4">{category.foodItemsCount}</td>
                   <td className="px-6 py-4 text-right flex gap-4 justify-end">
                     <button
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

@@ -11,6 +11,7 @@ export default function FoodItemModal({
 }) {
   const [spinning, setSpinning] = useState(false);
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     axios
       .get("/admin/food-menu/categories")
@@ -20,7 +21,7 @@ export default function FoodItemModal({
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [show]);
 
   return (
     <>

@@ -227,7 +227,7 @@ export default function FoodItems() {
                     {item.description.slice(0, 20) + "..."}
                   </td>
                   <td className="px-6 py-3">
-                    {item.isAvailable ? "Yes" : "No"}
+                    {!item.isAvailable ? "Yes" : "No"}
                   </td>
                   <td className="px-6 py-3">
                     <div className="flex items-center space-x-4">
