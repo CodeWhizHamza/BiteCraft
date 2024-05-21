@@ -141,7 +141,7 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
               ))}
             </div>
             <span className="bg-orange-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-gray-800 ms-3">
-              {averageRating}
+              {Math.round(averageRating * 10) / 10}
             </span>
           </div>
           <div className="flex items-center justify-between">
