@@ -26,7 +26,7 @@ export default function Modal({
         }}
       >
         <div
-          className={`relative p-4 w-full max-w-md max-h-full overflow-auto ${
+          className={`relative p-4 w-full max-w-md max-h-full ${
             isFullWidth
               ? "min-w-96 sm:min-w-[40rem] md:min-w-[50rem] lg:min-w-[60rem] xl:min-w-[70rem]"
               : "min-w-[30rem]"
