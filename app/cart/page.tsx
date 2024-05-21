@@ -97,7 +97,8 @@ export default function Page() {
         const data = response.data;
         toast.success(data.message);
         clearCart();
-        router.push("/orders");
+        setShowPaymentModal(false);
+        router.push("/dashboard");
       } catch (error) {
         console.error("Error placing order: ", error);
         toast.error("Error placing order. Please try again later.");
@@ -137,7 +138,8 @@ export default function Page() {
       const data = response.data;
       toast.success(data.message);
       clearCart();
-      router.push("/orders");
+      setShowPaymentModal(false);
+      router.push("/dashboard");
     } catch (error) {
       console.error("Error placing order: ", error);
       toast.error("Error placing order. Please try again later.");
