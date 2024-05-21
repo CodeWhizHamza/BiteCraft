@@ -37,7 +37,7 @@ app.use("/user", userRouter);
 app.use("/admin/food-menu/categories", categoryRouter);
 app.use("/admin/food-menu/items", fooditemRouter);
 app.use("/food-menu/items", fooditemRouter);
-app.use("/order", orderRouter);
+app.use("/orders", orderRouter);
 
 
 // app.get("/", (req, res) => {
