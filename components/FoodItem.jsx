@@ -2,9 +2,11 @@ import { useCartStore } from "@/store/cart";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Modal from "./Modal";
 
 export default function FoodItem({ item }) {
   const [rating, setRating] = useState(0);
+  const [showModal, setShowModal] = useState(false);
   const addToCart = useCartStore((state) => state.addToCart);
 
   const handleStarClick = (value) => {
@@ -19,7 +21,10 @@ export default function FoodItem({ item }) {
   return (
     <>
       <article className="max-w-sm w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#" className="flex justify-center items-center">
+        <a
+          onClick={() => setShowModal(true)}
+          className="flex justify-center items-center"
+        >
           <Image
             src={item.image}
             className="p-8 rounded-t-lg"
@@ -30,7 +35,7 @@ export default function FoodItem({ item }) {
           />
         </a>
         <div className="p-5">
-          <a href="#">
+          <a onClick={() => setShowModal(true)}>
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {item.name}
             </h5>
@@ -76,6 +81,10 @@ export default function FoodItem({ item }) {
           </div>
         </div>
       </article>
+
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        <p></p>
+      </Modal>
     </>
   );
 }
