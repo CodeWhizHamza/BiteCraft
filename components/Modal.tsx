@@ -2,10 +2,12 @@ import { useState } from "react";
 
 export default function Modal({
   show,
+  isFullWidth = false,
   onClose,
   children,
 }: {
   show: boolean;
+  isFullWidth?: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }) {
@@ -25,7 +27,11 @@ export default function Modal({
           }
         }}
       >
-        <div className="relative p-4 w-full min-w-[30rem] max-w-md max-h-full">
+        <div
+          className={`relative p-4 w-full max-w-md max-h-full ${
+            isFullWidth ? "" : "min-w-[30rem]"
+          }`}
+        >
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button
               type="button"
