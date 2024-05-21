@@ -36,6 +36,7 @@ export default function Categories() {
           },
         });
         const data = await response.data;
+        console.log(data);
         setCategories(data.data);
       } catch (error: any) {
         if (error.response) {
