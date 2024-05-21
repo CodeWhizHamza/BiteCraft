@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function Modal({
   show,
   isFullWidth = false,
@@ -19,7 +17,7 @@ export default function Modal({
         aria-hidden="true"
         className={`${
           !show && "hidden"
-        } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full bg-slate-700 bg-opacity-40 backdrop-blur-sm grid`}
+        } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen min-h-full bg-slate-700 bg-opacity-40 backdrop-blur-sm grid`}
         onMouseDown={(e) => {
           // @ts-ignore
           if (e.target.id === "crud-modal") {
@@ -28,8 +26,10 @@ export default function Modal({
         }}
       >
         <div
-          className={`relative p-4 w-full max-w-md max-h-full ${
-            isFullWidth ? "" : "min-w-[30rem]"
+          className={`relative p-4 w-full max-w-md max-h-full overflow-auto ${
+            isFullWidth
+              ? "min-w-96 sm:min-w-[40rem] md:min-w-[50rem] lg:min-w-[60rem] xl:min-w-[70rem]"
+              : "min-w-[30rem]"
           }`}
         >
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
