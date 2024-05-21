@@ -112,23 +112,14 @@ export default function Page() {
 
     const imageFormData = new FormData();
     imageFormData.append("file", image);
-    let imageString = "";
+
     // @ts-ignore
-    toast.promise(
-      fetch("/api/upload", {
-        method: "POST",
-        body: imageFormData,
-      }).then((response) => response.json()),
-      {
-        pending: "Uploading image...",
-        // @ts-ignore
-        success: (data) => {
-          imageString = `/images/uploads/${data.path.split("\\").pop()}`;
-          return "Image uploaded successfully";
-        },
-        error: "Error uploading image",
-      }
-    );
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: imageFormData,
+    });
+    const data = await response.json();
+    const imageString = `/images/uploads/${data.path.split("\\").pop()}`;
 
     try {
       const order = {
@@ -145,6 +136,7 @@ export default function Page() {
       });
       const data = response.data;
       toast.success(data.message);
+      clearCart();
       router.push("/orders");
     } catch (error) {
       console.error("Error placing order: ", error);
