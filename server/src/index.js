@@ -9,6 +9,7 @@ const userRouter = require("./routes/user");
 const adminRouter = require("./routes/admin");
 const categoryRouter = require("./routes/category");
 const fooditemRouter = require("./routes/foodItemRoute");
+const orderRouter = require("./routes/order");
 
 const app = express();
 const port = process.env.PORT || 5050;
@@ -36,6 +37,7 @@ app.use("/user", userRouter);
 app.use("/admin/food-menu/categories", categoryRouter);
 app.use("/admin/food-menu/items", fooditemRouter);
 app.use("/food-menu/items", fooditemRouter);
+app.use("/orders", orderRouter);
 
 
 // app.get("/", (req, res) => {
