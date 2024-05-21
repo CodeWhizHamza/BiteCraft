@@ -27,7 +27,14 @@ export default function FoodCategoryDisplay() {
                 <h2 className="text-4xl mb-4 mt-12 font-bold tracking-tight text-slate-800 dark:text-white">
                   {category}
                 </h2>
-                <ul className="flex flex-col float-left gap-2 mt-2 mb-4  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+                <ul
+                  className="grid mt-2 mb-4"
+                  style={{
+                    gridTemplateColumns:
+                      "repeat(auto-fill, minmax(340px, 1fr))",
+                    gap: "1rem",
+                  }}
+                >
                   {items.map((item) => (
                     <FoodItem item={item} key={item._id} />
                   ))}
