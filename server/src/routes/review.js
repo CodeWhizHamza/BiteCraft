@@ -41,12 +41,20 @@ router.get("/", verifyToken, async (req, res) => {
             const modifiedReviews = [];
             for (let review of reviews) {
                 const user = await User.findById(review.user);
-                const item = await FoodItem.findById(review.productId);
                 review._doc.username = user.name;
-                review._doc.itemName = item.name;
-                review._doc.image = item.image;
-                review._doc.description = item.description;
+                const item = await FoodItem.findById(review.productId);
+                if (item !== null) {
+                    review._doc.itemName = item.name;
+                    review._doc.image = item.image;
+                    review._doc.description = item.description;
+                }
+                else {
+                    review._doc.itemName = "[deleted]";
+                    review._doc.image = "[deleted]";
+                    review._doc.description = "[deleted]";
+                }
                 modifiedReviews.push(review);
+
             }
             res.send({
                 success: true,

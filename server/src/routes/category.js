@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Category = require("../models/Category");
+const FoodItem = require("../models/FoodItem");
 const { verifyToken, isAdmin } = require("../middleware/auth");
 
 router.post("/", verifyToken, isAdmin, async (req, res) => {
@@ -26,6 +27,13 @@ router.get("/", async (req, res) => {
   try {
     const categories = await Category.find();
     categories.sort((a, b) => a.name.localeCompare(b.name));
+
+    // get itemCount in categories
+    for (let i = 0; i < categories.length; i++) {
+      const items = await FoodItem.find({ category: categories[i].name });
+      categories[i]._doc.foodItemsCount = items.length;
+    }
+
     res.send({
       success: true,
       data: categories,
