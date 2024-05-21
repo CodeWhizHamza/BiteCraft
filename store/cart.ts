@@ -9,6 +9,7 @@ interface ICartStore {
   addToCart: (id: string) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
+  clearCart: () => void;
 }
 
 export const useCartStore = create(
@@ -42,6 +43,9 @@ export const useCartStore = create(
             item.id === id ? { ...item, quantity } : item
           ),
         }));
+      },
+      clearCart: () => {
+        set({ cart: [] });
       },
     }),
     {
