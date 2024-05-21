@@ -164,14 +164,14 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
         isFullWidth={true}
       >
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
             <div className="">
               <Image
                 src={item.image}
                 alt="product-img"
                 width={500}
                 height={500}
-                className="w-full object-contain"
+                className="w-full object-contain rounded-md"
                 priority
               />
             </div>
