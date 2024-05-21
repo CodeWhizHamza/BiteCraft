@@ -9,6 +9,7 @@ import { FaSpinner } from "react-icons/fa6";
 interface Category {
   _id: string;
   name: string;
+  foodItemsCount: number;
 }
 
 export default function Categories() {
@@ -22,6 +23,10 @@ export default function Categories() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!token) {
+      return;
+    }
+
     const fetchCategories = async () => {
       setLoading(true);
       try {
@@ -80,7 +85,7 @@ export default function Categories() {
 
       setCategories((prevCategories) => [
         ...prevCategories,
-        { _id: data.data._id, name: data.data.name },
+        { _id: data.data._id, name: data.data.name, foodItemsCount: 0 },
       ]);
 
       setSpinning(false);
@@ -240,7 +245,7 @@ export default function Categories() {
                   >
                     {category.name}
                   </th>
-                  <td className="px-6 py-4">5</td>
+                  <td className="px-6 py-4">{category.foodItemsCount}</td>
                   <td className="px-6 py-4 text-right flex gap-4 justify-end">
                     <button
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
