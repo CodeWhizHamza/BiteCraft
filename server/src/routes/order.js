@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Order = require("../models/Order");
+const User = require("../models/User");
 const FoodItem = require("../models/FoodItem");
 const { verifyToken, isAdmin } = require("../middleware/auth");
 
@@ -31,6 +32,39 @@ router.post("/", verifyToken, async (req, res) => {
 router.get("/", verifyToken, async (req, res) => {
 
     try {
+
+        if (req.user.role === "admin") {
+            const orders = await Order.find();
+            // order by created date
+            orders.sort((a, b) => b.createdAt - a.createdAt);
+            // order by status
+            orders.sort((a, b) => {
+                const orderStatus = ["confirming", "processing", "enroute", "delivered", "cancelled"];
+                return orderStatus.indexOf(a.status) - orderStatus.indexOf(b.status);
+            });
+            for (let i = 0; i < orders.length; i++) {
+
+                const customer = await User.findById(orders[i].user);
+                orders[i]._doc.username = customer.name;
+                orders[i]._doc.phoneNumber = customer.phoneNumber;
+
+                for (let j = 0; j < orders[i].items.length; j++) {
+                    let item = orders[i].items[j];
+                    let product = await FoodItem.findById(item.id);
+                    orders[i].items[j]._doc.name = product.name;
+                    orders[i].items[j]._doc.price = product.price;
+                    orders[i].items[j]._doc.image = product.image;
+                    orders[i].items[j]._doc.description = product.description;
+                }
+            }
+            res.send({
+                success: true,
+                data: orders,
+            });
+            return;
+        }
+
+
         const orders = await Order.find({ user: req.user._id });
         // order by created date
         orders.sort((a, b) => b.createdAt - a.createdAt);
