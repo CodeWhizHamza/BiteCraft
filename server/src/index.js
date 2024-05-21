@@ -34,7 +34,7 @@ app.use((req, _, next) => {
 });
 
 app.use("/admin", adminRouter);
-app.use("/user", userRouter);
+app.use("/users", userRouter);
 app.use("/admin/food-menu/categories", categoryRouter);
 app.use("/admin/food-menu/items", fooditemRouter);
 app.use("/food-menu/items", fooditemRouter);
