@@ -20,7 +20,7 @@ export default function FoodItemModal({
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  });
 
   return (
     <>

@@ -23,20 +23,20 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
         const response = await axios.get(`/reviews/${item._id}`);
         const data = response.data.data;
         setReviews(data);
-
-        const totalStars = data.reduce(
-          (acc: number, review: any) => acc + review.stars,
-          0
-        );
-        const avgRating = data.length > 0 ? totalStars / data.length : 0;
-        setAverageRating(avgRating);
       } catch (error) {
         console.error("Error fetching reviews: ", error);
       }
     };
 
+    const totalStars = reviews.reduce(
+      (acc: number, review: any) => acc + review.stars,
+      0
+    );
+    const avgRating = reviews.length > 0 ? totalStars / reviews.length : 0;
+    setAverageRating(avgRating);
+
     fetchReviews();
-  }, [item._id]);
+  }, [item._id, reviews]);
 
   const handleStarClick = (value: number) => {
     setRating(value);
@@ -84,9 +84,7 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
       const data = response.data;
 
       console.log(data);
-
       setReviews([...reviews, data.data]);
-
       console.log("Review submitted: ", data);
       toast.success("Review submitted successfully");
     } catch (error) {
@@ -141,7 +139,7 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
               ))}
             </div>
             <span className="bg-orange-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-gray-800 ms-3">
-              {averageRating}
+              {Math.round(averageRating * 10) / 10}
             </span>
           </div>
           <div className="flex items-center justify-between">
@@ -164,14 +162,14 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
         isFullWidth={true}
       >
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
             <div className="">
               <Image
                 src={item.image}
                 alt="product-img"
                 width={500}
                 height={500}
-                className="w-full object-contain"
+                className="w-full object-contain rounded-md"
                 priority
               />
             </div>

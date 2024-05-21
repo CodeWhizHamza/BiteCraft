@@ -19,6 +19,8 @@ export default function Page() {
   const isAdmin = useUserAuth((state) => state.user?.role === "admin");
   const logout = useUserAuth((state) => state.logout);
 
+  const [userDetails, setUserDetails] = useState<any>(null);
+
   const [orders, setOrders] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,6 +28,21 @@ export default function Page() {
     if (!isLoggedIn) {
       return;
     }
+
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get("/users/me", {
+          headers: {
+            "auth-token": token,
+          },
+        });
+        console.log(response.data);
+        setUserDetails(response.data.data);
+      } catch (error) {
+        console.log(error);
+        toast.error("Error fetching user details");
+      }
+    };
 
     const fetchOrders = async () => {
       setIsLoading(true);
@@ -35,7 +52,6 @@ export default function Page() {
             "auth-token": token,
           },
         });
-        console.log(response.data);
         setOrders(response.data.data);
       } catch (error) {
         console.log(error);
@@ -45,6 +61,7 @@ export default function Page() {
     };
 
     fetchOrders();
+    fetchUserDetails();
   }, [isLoggedIn, token]);
 
   const handleLogout = () => {
@@ -60,6 +77,53 @@ export default function Page() {
         logout();
         router.push("/");
       }
+    });
+  };
+
+  const handleEditProfile = () => {
+    Swal.fire({
+      title: "Edit Profile",
+      html: `
+        <form id="edit-profile-form" class="space-y-4">
+          <div>
+            <input type="text" id="name" name="userName" value="${userDetails?.name}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm" required>
+          </div>
+          <div>
+            <input type="tel" id="address" name="address" value="${userDetails?.address}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm" required>
+          </div>
+        </form>
+      `,
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      preConfirm: () => {
+        const form = document.getElementById(
+          "edit-profile-form"
+        ) as HTMLFormElement;
+        const name = form.userName.value;
+        const address = form.address.value;
+
+        axios
+          .put(
+            "/users/me",
+            {
+              name,
+              address,
+            },
+            {
+              headers: {
+                "auth-token": token,
+              },
+            }
+          )
+          .then((response) => {
+            setUserDetails(response.data.data);
+            Swal.fire("Profile updated", "", "success");
+          })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire("Error updating profile", "", "error");
+          });
+      },
     });
   };
 
@@ -96,8 +160,17 @@ export default function Page() {
     <>
       <Navbar />
       <section className="py-8 px-4 relative container mx-auto h-full">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold">Welcome, {user?.name}</h1>
+        <div className="flex justify-between items-center gap-3">
+          <h1 className="text-3xl font-bold w-full">
+            Welcome, {userDetails?.name}
+          </h1>
+
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md min-w-fit"
+            onClick={handleEditProfile}
+          >
+            Edit Profile
+          </button>
           <button
             onClick={handleLogout}
             className="bg-red-500 text-white px-4 py-2 rounded-md"

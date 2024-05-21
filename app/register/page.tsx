@@ -22,7 +22,7 @@ export default function Page() {
     const formData = new FormData(form);
 
     try {
-      const response = await axios.post("/user/register", {
+      const response = await axios.post("/users/register", {
         name: formData.get("name"),
         phoneNumber: formData.get("phone"),
         password: formData.get("password"),
