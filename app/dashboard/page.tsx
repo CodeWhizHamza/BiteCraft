@@ -126,8 +126,9 @@ export default function Page() {
                   <h3 className="text-lg font-bold">Order ID: {order._id}</h3>
                   <p
                     className={`text-lg font-bold ${
-                      order.status === "confirming" ||
-                      order.status === "cancelled"
+                      order.status === "confirming"
+                        ? "text-yellow-500"
+                        : order.status === "cancelled"
                         ? "text-primary"
                         : order.status === "processing" ||
                           order.status === "enroute"
