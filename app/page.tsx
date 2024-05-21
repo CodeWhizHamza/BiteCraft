@@ -22,7 +22,7 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <MenuNavBar foodTypes={foodTypes} />
+      <MenuNavBar />
 
       {isLoading ? (
         <div className="flex justify-center items-center h-96">
