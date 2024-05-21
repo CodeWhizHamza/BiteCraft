@@ -8,15 +8,15 @@ const orderSchema = new Schema({
     },
     items: [
         {
-        foodItem: {
-            type: Schema.Types.ObjectId,
-            ref: "FoodItem",
-            required: true,
-        },
-        quantity: {
-            type: Number,
-            required: true,
-        },
+            id: {
+                type: Schema.Types.ObjectId,
+                ref: "FoodItem",
+                required: true,
+            },
+            quantity: {
+                type: Number,
+                required: true,
+            },
         },
     ],
     total: {
@@ -30,19 +30,19 @@ const orderSchema = new Schema({
     },
     payment: {
         type: String,
-        enum: ["cash", "card"],
+        enum: ["cash", "bank"],
         required: true,
     },
     screenshot: {
         type: String,
         required: function () {
-        return this.payment === "card";
+            return this.payment === "bank";
         },
     },
     createdAt: {
         type: Date,
         default: Date.now,
     },
-    });
+});
 
 module.exports = model("Order", orderSchema);

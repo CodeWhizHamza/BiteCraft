@@ -6,10 +6,11 @@ router.post("/", verifyToken, async (req, res) => {
     try {
         const order = new Order({
             user: req.user._id,
-            items: req.body.cart,
+            items: req.body.items,
             total: req.body.total,
-            payment: req.body.payment,
-            screenshot: req.body.payment === "card" ? req.body.paymentImage : undefined,
+            status: "confirming",
+            payment: req.body.paymentMethod,
+            screenshot: req.body.paymentMethod === "bank" ? req.body.paymentImage : undefined,
         });
         await order.save();
         res.send({
