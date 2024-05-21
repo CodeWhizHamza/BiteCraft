@@ -14,7 +14,7 @@ export default function FoodCategoryDisplay() {
   }, [foodItems]);
 
   return (
-    <div style={{ backgroundColor: "#f39c12" }}>
+    <div className="bg-primary2">
       <div className="container mx-auto p-4">
         {categories.map((category) => {
           const items = foodItems.filter((item) => item.category === category);
