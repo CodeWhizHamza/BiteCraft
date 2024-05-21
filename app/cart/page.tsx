@@ -244,7 +244,8 @@ export default function Page() {
                             <input
                               type="text"
                               id="number"
-                              className="border border-gray-200 rounded-full w-10 aspect-square outline-none text-gray-900 font-semibold text-sm py-1.5 px-3 bg-gray-100  text-center"
+                              maxLength={item.quantity.toString().length}
+                              className="border border-gray-200 rounded-full w-min max-w-14 outline-none text-gray-900 font-semibold text-sm py-1.5 px-3 bg-gray-100  text-center"
                               value={item.quantity}
                               readOnly
                             />
@@ -271,7 +272,10 @@ export default function Page() {
                             </button>
                           </div>
                           <h6 className="text-primary font-manrope font-bold text-2xl leading-9 text-right">
-                            Rs. {foodItem.price}
+                            Rs.{" "}
+                            {new Intl.NumberFormat().format(
+                              foodItem.price * item.quantity
+                            )}
                           </h6>
                         </div>
                       </div>
@@ -285,7 +289,7 @@ export default function Page() {
                     SubTotal
                   </h5>
                   <h6 className="font-bold text-xl lead-10 text-primary2">
-                    Rs. {totalPrice}
+                    Rs. {new Intl.NumberFormat().format(totalPrice)}
                   </h6>
                 </div>
                 <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-8">
@@ -296,7 +300,7 @@ export default function Page() {
                     </span>
                   </h5>
                   <h6 className="font-bold text-xl lead-10 text-primary2">
-                    Rs. {totalPrice * taxRate}
+                    Rs. {new Intl.NumberFormat().format(totalPrice * taxRate)}
                   </h6>
                 </div>
                 <div className="flex flex-col md:flex-row items-center md:items-center justify-between mb-4">
@@ -304,7 +308,10 @@ export default function Page() {
                     Total
                   </h5>
                   <h6 className="font-bold text-2xl lead-10 text-primary2">
-                    Rs. {totalPrice + totalPrice * taxRate}
+                    Rs.{" "}
+                    {new Intl.NumberFormat().format(
+                      totalPrice + totalPrice * taxRate
+                    )}
                   </h6>
                 </div>
 
