@@ -38,7 +38,7 @@ export default function Page() {
     }
 
     try {
-      const response = await axios.post("/user/login", {
+      const response = await axios.post("/users/login", {
         phoneNumber: phone,
         password,
       });
