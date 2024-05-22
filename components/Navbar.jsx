@@ -51,7 +51,7 @@ export default function Navbar() {
 
           <div className={`${!showMenu && "hidden"} md:block`}>
             <ul className="flex gap-4 flex-col justify-center items-center md:flex-row">
-              <li className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900 overflow-hidden">
+              {/* <li className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900 overflow-hidden">
                 <form>
                   <label
                     htmlFor="search"
@@ -73,7 +73,6 @@ export default function Navbar() {
                         required
                       />
                     </div>
-
                     <div className="absolute inset-y-0 end-0 md:flex items-center hidden">
                       <a
                         href="#"
@@ -84,10 +83,10 @@ export default function Navbar() {
                           style={{ fontSize: "25px", color: "#ecf0f1" }}
                         />
                       </a>
-                    </div>
+                    </div>{" "}
                   </div>
                 </form>
-              </li>
+              </li> */}
               <li className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900">
                 <Link className="flex items-center" href="/login">
                   <FaRegUser style={{ fontSize: "25px", color: "#ecf0f1" }} />
