@@ -89,7 +89,7 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
       setReviews([...reviews, data.data]);
       console.log("Review submitted: ", data);
       toast.success("Review submitted successfully");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting review: ", error);
 
       if (error.response) {
