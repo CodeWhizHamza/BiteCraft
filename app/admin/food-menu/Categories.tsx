@@ -133,6 +133,7 @@ export default function Categories() {
         `/admin/food-menu/categories/${editingCategoryId}`,
         {
           name: formData.get("categoryName"),
+          id: editingCategoryId,
         },
         {
           headers: {

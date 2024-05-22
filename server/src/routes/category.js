@@ -49,12 +49,32 @@ router.get("/", async (req, res) => {
 
 router.put("/:id", verifyToken, isAdmin, async (req, res) => {
   try {
+    const categories = await Category.find();
+
     const category = await Category.findById(req.params.id);
     if (!category) {
       return res.status(404).send({
         success: false,
         message: "Category not found",
       });
+    }
+
+    // check if category name already exists
+    const categoryExists = categories.find(
+      (c) => c.name === req.body.name && c._id != req.params.id
+    );
+
+    if (categoryExists) {
+      return res.status(400).send({
+        success: false,
+        message: "Category name already exists",
+      });
+    }
+
+    const foodItems = await FoodItem.find({ category: category.name });
+    for (let item of foodItems) {
+      item.category = req.body.name;
+      await item.save();
     }
 
     category.name = req.body.name;
@@ -82,6 +102,16 @@ router.delete("/:id", verifyToken, isAdmin, async (req, res) => {
         message: "Category not found",
       });
     }
+
+    const foodItems = await FoodItem.find({ category: category.name });
+
+    if (foodItems.length > 0) {
+      return res.status(400).send({
+        success: false,
+        message: "Category has food items. Please delete them first",
+      });
+    }
+
     await Category.findByIdAndDelete(req.params.id);
     res.send({
       success: true,
