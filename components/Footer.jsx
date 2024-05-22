@@ -8,7 +8,7 @@ import { MdLocationOn } from "react-icons/md";
 export default function Footer() {
   return (
     <>
-      <footer className="bg-primary2 flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900 ">
+      <footer className="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900  text-white">
         <div className="w-full max-w-screen-3xl mt-12 p-4 py-6 lg:py-8 bg-primary border-primary rounded-lg shadow-xl mb-4 h-[20rem] dark:bg-gray-800 dark:border-gray-700">
           <div className="md:flex md:justify-between ml-12">
             <div className="mb-6 md:mb-0">
@@ -94,11 +94,8 @@ export default function Footer() {
             </div>
           </div>
           <hr className="my-6 border-black sm:mx-auto dark:border-gray-700 lg:my-8"></hr>
-          <div className="sm:flex sm:items-center sm:justify-between">
-            <span
-              style={{ color: "black" }}
-              className="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-            >
+          <div className="sm:flex sm:items-center sm:justify-between text-white">
+            <span className="text-sm sm:text-center dark:text-gray-400">
               © 2024 <a href="/">KitchenKonnect</a> All Rights Reserved.
             </span>
           </div>
