@@ -95,7 +95,7 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
 
   return (
     <>
-      <article className="max-w-sm w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <article className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a
           onClick={() => setShowModal(true)}
           className="flex justify-center items-center cursor-pointer"
