@@ -22,7 +22,7 @@ export default function AccordionWithCustomIcon() {
             What is KitchenKonnect?
           </AccordionHeader>
           {open === 1 && (
-            <AccordionBody className="p-4">
+            <AccordionBody className="p-4 text-gray-200 text-xl leading-normal">
               KitchenKonnect is your one-stop shop for delicious, home-cooked
               meals delivered straight to your door. We use fresh, seasonal
               ingredients to create a variety of dishes that cater to all
@@ -41,7 +41,7 @@ export default function AccordionWithCustomIcon() {
             How does KitchenKonnect work?
           </AccordionHeader>
           {open === 2 && (
-            <AccordionBody className="p-4">
+            <AccordionBody className="p-4 text-gray-200 text-xl leading-normal">
               Ordering from KitchenKonnect is simple! Just browse our rotating
               menu online, choose your desired meals, select your delivery time,
               and checkout. We&apos;ll take care of the rest, preparing your
@@ -60,7 +60,7 @@ export default function AccordionWithCustomIcon() {
             What are the benefits of using KitchenKonnect?
           </AccordionHeader>
           {open === 3 && (
-            <AccordionBody className="p-4">
+            <AccordionBody className="p-4 text-gray-200 text-xl leading-normal">
               KitchenKonnect offers several benefits:
               <ul className="list-disc pl-4 mt-2">
                 <li>
@@ -90,7 +90,7 @@ export default function AccordionWithCustomIcon() {
             Why KitchenKonnect?
           </AccordionHeader>
           {open === 4 && (
-            <AccordionBody className="p-4">
+            <AccordionBody className="p-4 text-gray-200 text-xl leading-normal">
               There are many reasons to choose KitchenKonnect for your
               home-cooked meals:
               <ul className="list-disc pl-4 mt-2">
