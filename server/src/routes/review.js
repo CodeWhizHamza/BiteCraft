@@ -75,6 +75,9 @@ router.get("/", verifyToken, async (req, res) => {
         }
         modifiedReviews.push(review);
       }
+
+      // order by stars
+      modifiedReviews.sort((a, b) => b.stars - a.stars);
       res.send({
         success: true,
         message: "Reviews fetched successfully",
