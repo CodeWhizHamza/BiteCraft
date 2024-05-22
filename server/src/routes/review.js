@@ -14,11 +14,11 @@ router.post("/", verifyToken, async (req, res) => {
     let order = null;
 
     for (let i = 0; i < userOrders.length; i++) {
-      order = userOrders[i].items.find(
-        (item) => item.productId == req.body.productId
-      );
-      if (order) {
-        break;
+      for (let j = 0; j < userOrders[i].items.length; j++) {
+        if (userOrders[i].items[j].id == req.body.productId) {
+          order = userOrders[i];
+          break;
+        }
       }
     }
 
