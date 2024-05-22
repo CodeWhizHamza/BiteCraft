@@ -28,15 +28,17 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
       }
     };
 
+    fetchReviews();
+  }, [item._id]);
+
+  useEffect(() => {
     const totalStars = reviews.reduce(
       (acc: number, review: any) => acc + review.stars,
       0
     );
     const avgRating = reviews.length > 0 ? totalStars / reviews.length : 0;
     setAverageRating(avgRating);
-
-    fetchReviews();
-  }, [item._id, reviews]);
+  }, [reviews]);
 
   const handleStarClick = (value: number) => {
     setRating(value);
@@ -89,7 +91,10 @@ export default function FoodItem({ item }: { item: IFoodItem }) {
       toast.success("Review submitted successfully");
     } catch (error) {
       console.error("Error submitting review: ", error);
-      toast.error("Error submitting review");
+
+      if (error.response) {
+        return toast.error(error.response.data.message);
+      } else toast.error("Error submitting review");
     }
   };
 
