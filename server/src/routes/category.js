@@ -5,6 +5,15 @@ const { verifyToken, isAdmin } = require("../middleware/auth");
 
 router.post("/", verifyToken, isAdmin, async (req, res) => {
   try {
+    // check if category name already exists
+    const categoryExists = await Category.findOne({ name: req.body.name });
+    if (categoryExists) {
+      return res.status(400).send({
+        success: false,
+        message: "Category name already exists",
+      });
+    }
+
     const category = new Category({
       name: req.body.name,
     });
